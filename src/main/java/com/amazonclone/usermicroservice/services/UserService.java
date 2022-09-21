@@ -16,15 +16,14 @@ public class UserService {
 	@Autowired
 	UserDetailsRepo userDetailsRepo;
 	
-//	@Autowired
-//	UtilService utilService;
-	
+
+	//saving a new user to database
 	public UserDetails saveNewUser(UserDetails userDetails) {
-//		utilService.saveUserProfile(userDetails);
 		return userDetailsRepo.save(userDetails);
 		
 	}
 	
+	//finding user based on login credentials:used to catch invalid user
 	public UserDetails getUser(LoginDetails loginDetails) {
 		UserDetails user = userDetailsRepo.findByUserName(loginDetails.getUserName());
 		if(user!=null) {
@@ -33,10 +32,13 @@ public class UserService {
 		return null;
 	}
 	
+	//checking the password
 	public boolean isValidPassword(String correctPassword,String enteredPassword) {
 		return correctPassword.equals(enteredPassword);
 	}
 	
+	
+	//checking existing info in-order to maintain unique information for each user
 	public boolean isExistingUserName(String userName) {
 		return userDetailsRepo.findByUserName(userName)!=null;
 	}

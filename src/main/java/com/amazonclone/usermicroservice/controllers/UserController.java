@@ -14,7 +14,11 @@ import com.amazonclone.usermicroservice.models.UserDetails;
 import com.amazonclone.usermicroservice.services.UserProfileService;
 import com.amazonclone.usermicroservice.services.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
+@Api(description = "endpoints for register,login")
 public class UserController {
 
 	@Autowired
@@ -24,6 +28,7 @@ public class UserController {
 	UserProfileService userProfileService;
 	
 	@PostMapping("/register")
+	@ApiOperation(value = "function to register new user using details provided by user")
 	public UserDetails registerNewUser(@RequestBody UserDetails userDetails) throws UserAlreadyExistsException {
 		try {
 			if(!userService.isExistingUser(userDetails)) {
@@ -40,6 +45,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
+	@ApiOperation(value = "function to login existing user. Checks the for valid credentials")
 	public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginDetails loginDetails) {
 		
 		ResponseEntity<LoginResponse> response;
